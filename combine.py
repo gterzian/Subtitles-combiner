@@ -9,7 +9,6 @@ parser.add_argument('--files', type=str, metavar='Names', nargs='+',
 parser.add_argument('--title', type=str, metavar='Title', nargs='?', 
                        help='the title of movie within single brackets, used for the name of the generated file')   
 
-
 def process_filenames(filenames_list):
     for name in filenames_list:
         yield name
