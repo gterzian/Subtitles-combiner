@@ -5,4 +5,4 @@ Pinyin -- simplified-Chinese subtitles combiner
 
 #####Download and run as example:
 
-`python combine.py 'Crouching Tiger Hidden Dragon.Simplified.srt' 'Crouching_Tiger_Hidden_Dragon.Pinyin.srt'`
+`python combine.py --title 'Crouching Tiger Hidden Dragon' 'Crouching Tiger Hidden Dragon.Simplified.srt' 'Crouching_Tiger_Hidden_Dragon.Pinyin.srt'`
