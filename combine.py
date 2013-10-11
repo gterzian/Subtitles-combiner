@@ -2,6 +2,13 @@
 from collections import OrderedDict
 import argparse
 
+#setting up the command line parser
+parser = argparse.ArgumentParser(description='Process some subtitles.')
+parser.add_argument('--files', type=str, metavar='Names', nargs='+', 
+                       help='the name of the subtitle files, without comma separation but within single brackets')
+parser.add_argument('--title', type=str, metavar='Title', nargs='?', 
+                       help='the title of movie within single brackets, used for the name of the generated file')   
+
 
 def process_filenames(filenames_list):
     for name in filenames_list:
@@ -42,15 +49,9 @@ def create_combined_file(name, combined_subtitles):
             for line in item['lines']:
                 f.write(line.encode('utf-8'))
                 f.write('\n')
-            f.write('\n')
-    
+            f.write('\n')                    
 
-parser = argparse.ArgumentParser(description='Process some subtitles.')
-parser.add_argument('--files', type=str, metavar='Names', nargs='+', 
-                       help='the name of the subtitle files, without comma separation but within single brackets')
-parser.add_argument('--title', type=str, metavar='Title', nargs='?', 
-                       help='the title of movie within single brackets, used for the name of the generated file')                       
-
+#actual processing workflow
 args = parser.parse_args()
 file_names = process_filenames(args.files)
 files = read_file(file_names)
