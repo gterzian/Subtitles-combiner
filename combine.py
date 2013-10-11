@@ -32,12 +32,14 @@ def combine_in_dict(*args):
 
 parser = argparse.ArgumentParser(description='Process some subtitles.')
 parser.add_argument('files', type=str, metavar='Names', nargs='+', 
-                       help='the name of the subtitle files, without comma separation')
+                       help='the name of the subtitle files, without comma separation but within single brackets')
+parser.add_argument('--title', type=str, metavar='Title', nargs='?', 
+                       help='the title of movie within single brackets, used for the name of the generated file')                       
 args = parser.parse_args()
 file_names = process_filenames(args.files)
 subs = read_file(file_names)
 subs = combine_in_dict(*subs) 
-with open('combined.srt', 'w') as f:
+with open('%s.srt' % args.title, 'w') as f:
     for item in subs.items():
         f.write(item[0])
         f.write('\n')
