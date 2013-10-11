@@ -17,10 +17,10 @@ def read_subs(sub_file):
             if line.strip():
                 yield line.strip().decode('utf-8')
                 
-def combine_in_dict(*args):
+def combine(files):
     subs = OrderedDict()
     line_number = None
-    for lines in zip(*args):
+    for lines in zip(*files):
         if lines[0].isdigit():
             subs[lines[0]] = {}
             line_number = lines[0]
@@ -28,27 +28,34 @@ def combine_in_dict(*args):
             subs[line_number]['time'] = lines[0]
         else:
             subs[line_number]['lines'] = [ line for line in lines]
-    return subs
+    for item in subs.items():
+        yield item
+        
+def create_combined_file(name, combined_subtitles):
+    with open('%s.srt' % name, 'w') as f:
+        for item in combined_subtitles:
+            f.write(item[0])
+            f.write('\n')
+            f.write(item[1]['time'].encode('utf-8'))
+            f.write('\n')
+            for line in item[1]['lines']:
+                f.write(line.encode('utf-8'))
+                f.write('\n')
+            f.write('\n')
+    
 
 parser = argparse.ArgumentParser(description='Process some subtitles.')
 parser.add_argument('--files', type=str, metavar='Names', nargs='+', 
                        help='the name of the subtitle files, without comma separation but within single brackets')
 parser.add_argument('--title', type=str, metavar='Title', nargs='?', 
                        help='the title of movie within single brackets, used for the name of the generated file')                       
+
 args = parser.parse_args()
 file_names = process_filenames(args.files)
-subs = read_file(file_names)
-subs = combine_in_dict(*subs) 
-with open('%s.srt' % args.title, 'w') as f:
-    for item in subs.items():
-        f.write(item[0])
-        f.write('\n')
-        f.write(item[1]['time'].encode('utf-8'))
-        f.write('\n')
-        for line in item[1]['lines']:
-            f.write(line.encode('utf-8'))
-            f.write('\n')
-        f.write('\n')
+files = read_file(file_names)
+combined_subtitles = combine(files) 
+create_combined_file(args.title, combined_subtitles)
+
             
         
    
