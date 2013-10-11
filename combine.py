@@ -39,7 +39,7 @@ def combine(files):
     for item in subs.items():
         yield item[1]
         
-def create_combined_file(name, combined_subtitles):
+def write_combined_file(name, combined_subtitles):
     with open('%s.srt' % name, 'w') as f:
         for item in combined_subtitles:
             f.write(item['number'].encode('utf-8'))
@@ -56,7 +56,7 @@ args = parser.parse_args()
 file_names = process_filenames(args.files)
 files = read_file(file_names)
 combined_subtitles = combine(files) 
-create_combined_file(args.title, combined_subtitles)
+write_combined_file(args.title, combined_subtitles)
 
             
         
