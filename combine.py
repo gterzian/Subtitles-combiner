@@ -42,14 +42,14 @@ def combine(files):
 def create_combined_file(name, combined_subtitles):
     with open('%s.srt' % name, 'w') as f:
         for item in combined_subtitles:
-            f.write(item['number'])
-            f.write('\n')
+            f.write(item['number'].encode('utf-8'))
+            f.write(u'\n')
             f.write(item['time'].encode('utf-8'))
-            f.write('\n')
+            f.write(u'\n')
             for line in item['lines']:
                 f.write(line.encode('utf-8'))
-                f.write('\n')
-            f.write('\n')                    
+                f.write(u'\n')
+            f.write(u'\n')                    
 
 #actual processing workflow
 args = parser.parse_args()
