@@ -9,11 +9,7 @@ parser.add_argument('--files', type=str, metavar='Names', nargs='+',
 parser.add_argument('--title', type=str, metavar='Title', nargs='?', 
                        help='the title of movie within single brackets, used for the name of the generated file')   
 
-def process_filenames(filenames_list):
-    for name in filenames_list:
-        yield name
-        
-def read_file(names):
+def read_files(names):
     for name in names:
         yield read_subs(name)
 
@@ -52,8 +48,7 @@ def write_combined_file(name, combined_subtitles):
 
 #actual processing workflow
 args = parser.parse_args()
-file_names = process_filenames(args.files)
-files = read_file(file_names)
+files = read_files(args.files)
 combined_subtitles = combine(files) 
 write_combined_file(args.title, combined_subtitles)
 
