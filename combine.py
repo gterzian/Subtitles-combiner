@@ -30,7 +30,7 @@ def combine(files):
         elif '-->' in lines[0]:
             subs[line_number]['time'] = lines[0]
         else:
-            subs[line_number]['lines'] = [ line for line in lines]
+            subs[line_number]['lines'] = [line for line in lines]
     for item in subs.items():
         yield item[1]
         
