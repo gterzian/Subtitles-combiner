@@ -22,23 +22,24 @@ def combine(files):
     line_number = None
     for lines in zip(*files):
         if lines[0].isdigit():
-            subs[lines[0]] = {}
             line_number = lines[0]
+            subs[line_number] = {}
+            subs[line_number]['number'] = line_number
         elif '-->' in lines[0]:
             subs[line_number]['time'] = lines[0]
         else:
             subs[line_number]['lines'] = [ line for line in lines]
     for item in subs.items():
-        yield item
+        yield item[1]
         
 def create_combined_file(name, combined_subtitles):
     with open('%s.srt' % name, 'w') as f:
         for item in combined_subtitles:
-            f.write(item[0])
+            f.write(item['number'])
             f.write('\n')
-            f.write(item[1]['time'].encode('utf-8'))
+            f.write(item['time'].encode('utf-8'))
             f.write('\n')
-            for line in item[1]['lines']:
+            for line in item['lines']:
                 f.write(line.encode('utf-8'))
                 f.write('\n')
             f.write('\n')
