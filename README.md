@@ -1,5 +1,7 @@
-Pinyin -- Chinese Characters subtitles combiner
-===============================================
+Pinyin -- Chinese Characters
+============================
+###subtitles combiner
+
 
 ####script to combine Pinyin and character subtitles
 
