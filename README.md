@@ -11,7 +11,7 @@ Pinyin -- Chinese Characters
 ```
 $ python combine.py 
   --title 'Crouching Tiger Hidden Dragon' 
-  --files 'Crouching Tiger Hidden Dragon.Simplified.srt' 'Crouching_Tiger_Hidden_Dragon.Pinyin.srt' 
+  --files 'CTHD.Simplified.srt' 'CTHD.Pinyin.srt' 
 ```
 
 you can add as many filenames as you want, these will all be combined. 
