@@ -16,11 +16,10 @@ $ python combine.py
 
 you can add as many filenames as you want, these will all be combined. 
 
-Also an example of using generators for creating data processing pipelines. 
+Also an example of using generators and coroutines for creating data processing pipelines. 
 
 For more on this see: 
 
-* [Generator Tricks for Systems Programmers](http://www.dabeaz.com/generators/)
-* [Pipes and filters architectures with Python generators](http://www.stylight.com/Numbers/pipes-and-filters-architectures-with-python-generators/)
+* [Coroutines and Generators, explained by David Beazley](http://www.dabeaz.com/coroutines/Coroutines.pdf)
 
 Also make sure to check out recipe 4.13. Creating Data Processing Pipelines of the excellent [Python Cookbook](http://shop.oreilly.com/product/0636920027072.do)

@@ -18,19 +18,26 @@ def read_subs(sub_file):
             if line.strip():
                 yield line.strip().decode('utf-8')
                 
-def combine(files):
-    subs = OrderedDict()
-    line_number = None
-    for lines in zip(*files):
+def to_dict_coroutine(target):
+    while True:
+        lines = (yield)
         if lines[0].isdigit():
             line_number = lines[0]
-            subs[line_number] = {}
-            subs[line_number]['number'] = line_number
+            target[line_number] = {}
+            target[line_number]['number'] = line_number
         elif '-->' in lines[0]:
-            subs[line_number]['time'] = lines[0]
+            target[line_number]['time'] = lines[0]
         else:
-            subs[line_number]['lines'] = [line for line in lines]
-    for item in subs.items():
+            target[line_number]['lines'] = [line for line in lines]          
+                       
+def combine_into_dict(lines, coroutine):
+    data_holder = OrderedDict()
+    func = coroutine(data_holder)
+    func.send(None)
+    for lines in zip(*lines):
+        func.send(lines)
+    func.close()
+    for item in data_holder.items():
         yield item[1]
         
 def write_combined_file(name, combined_subtitles):
@@ -43,12 +50,13 @@ def write_combined_file(name, combined_subtitles):
             for line in item['lines']:
                 f.write(line.encode('utf-8'))
                 f.write(u'\n')
-            f.write(u'\n')                    
+            f.write(u'\n') 
+    print "===> Combined subtitles into a file named '%s.srt'" % name                   
 
 #actual processing workflow
 args = parser.parse_args()
-files = read_files(args.files)
-combined_subtitles = combine(files) 
+lines = read_files(args.files)
+combined_subtitles = combine_into_dict(lines, to_dict_coroutine) 
 write_combined_file(args.title, combined_subtitles)
 
             
