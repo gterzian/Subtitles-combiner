@@ -16,7 +16,7 @@ $ python combine.py
 
 you can add as many filenames as you want, these will all be combined. 
 
-Also an example of using generators and coroutines for creating data processing pipelines. 
+Also an example of using generators for creating data processing pipelines. 
 
 For more on this see: 
 
