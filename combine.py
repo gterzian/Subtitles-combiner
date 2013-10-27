@@ -22,8 +22,7 @@ def combine_into_dict(lines):
     for lines in zip(*lines):
         target = defaultdict(str)
         if lines[0].isdigit():
-            line_number = lines[0]
-            target['number'] = line_number
+            target['number'] = lines[0]
         elif '-->' in lines[0]:
             target['time'] = lines[0]
         else:
