@@ -16,37 +16,25 @@ def read_subs(sub_file):
     with open(sub_file, 'rt') as f: 
         for line in f:
             if line.strip():
-                yield line.strip().decode('utf-8')
-                
-def to_dict_coroutine(target):
-    while True:
-        lines = (yield)
+                yield line.strip().decode('utf-8')       
+                       
+def combine_into_dict(lines):
+    for lines in zip(*lines):
+        target = OrderedDict(number='', time='', lines='')
         if lines[0].isdigit():
             line_number = lines[0]
-            target[line_number] = {}
-            target[line_number]['number'] = line_number
+            target['number'] = line_number
         elif '-->' in lines[0]:
-            target[line_number]['time'] = lines[0]
+            target['time'] = lines[0]
         else:
-            target[line_number]['lines'] = [line for line in lines]          
-                       
-def combine_into_dict(lines, coroutine):
-    data_holder = OrderedDict()
-    func = coroutine(data_holder)
-    func.send(None)
-    for lines in zip(*lines):
-        func.send(lines)
-    func.close()
-    for item in data_holder.items():
-        yield item[1]
+            target['lines'] = [line for line in lines]
+        yield target
         
 def write_combined_file(name, combined_subtitles):
     with open('%s.srt' % name, 'w') as f:
         for item in combined_subtitles:
             f.write(item['number'].encode('utf-8'))
-            f.write(u'\n')
             f.write(item['time'].encode('utf-8'))
-            f.write(u'\n')
             for line in item['lines']:
                 f.write(line.encode('utf-8'))
                 f.write(u'\n')
@@ -56,7 +44,7 @@ def write_combined_file(name, combined_subtitles):
 #actual processing workflow
 args = parser.parse_args()
 lines = read_files(args.files)
-combined_subtitles = combine_into_dict(lines, to_dict_coroutine) 
+combined_subtitles = combine_into_dict(lines) 
 write_combined_file(args.title, combined_subtitles)
 
             
