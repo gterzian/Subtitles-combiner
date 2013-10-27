@@ -1,4 +1,4 @@
-from collections import OrderedDict
+from collections import defaultdict
 import argparse
 
 #setting up the command line parser
@@ -20,7 +20,7 @@ def read_subs(sub_file):
                        
 def combine_into_dict(lines):
     for lines in zip(*lines):
-        target = OrderedDict(number='', time='', lines='')
+        target = defaultdict(str)
         if lines[0].isdigit():
             line_number = lines[0]
             target['number'] = line_number
