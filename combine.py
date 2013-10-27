@@ -18,26 +18,22 @@ def read_subs(sub_file):
         for line in f:
             if line.strip():
                 yield line.strip().decode('utf-8')       
-                       
+                        
 def combine_into_dict(lines):
     for lines in izip(*lines):
         target = defaultdict(str)
         if lines[0].isdigit():
-            target['number'] = lines[0]
+            yield lines[0]
         elif '-->' in lines[0]:
-            target['time'] = lines[0]
+            yield lines[0]
         else:
-            target['lines'] = [line for line in lines]
-        yield target
-        
+            for line in lines:
+                yield line
+          
 def write_combined_file(name, combined_subtitles):
     with open('%s.srt' % name, 'w') as f:
-        for item in combined_subtitles:
-            f.write(item['number'].encode('utf-8'))
-            f.write(item['time'].encode('utf-8'))
-            for line in item['lines']:
-                f.write(line.encode('utf-8'))
-                f.write(u'\n')
+        for line in combined_subtitles:
+            f.write(line.encode('utf-8'))
             f.write(u'\n') 
     print "===> Combined subtitles into a file named '%s.srt'" % name                   
 
@@ -46,6 +42,9 @@ args = parser.parse_args()
 lines = read_files(args.files)
 combined_subtitles = combine_into_dict(lines) 
 write_combined_file(args.title, combined_subtitles)
+
+
+
 
             
         
