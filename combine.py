@@ -1,4 +1,4 @@
-from collections import defaultdict
+
 import argparse
 from itertools import izip
 
@@ -21,7 +21,6 @@ def read_subs(sub_file):
                         
 def combine_into_dict(lines):
     for lines in izip(*lines):
-        target = defaultdict(str)
         if lines[0].isdigit():
             yield lines[0]
         elif '-->' in lines[0]:
