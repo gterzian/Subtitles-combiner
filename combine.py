@@ -1,5 +1,6 @@
 from collections import defaultdict
 import argparse
+from itertools import izip
 
 #setting up the command line parser
 parser = argparse.ArgumentParser(description='Process some subtitles.')
@@ -19,7 +20,7 @@ def read_subs(sub_file):
                 yield line.strip().decode('utf-8')       
                        
 def combine_into_dict(lines):
-    for lines in zip(*lines):
+    for lines in izip(*lines):
         target = defaultdict(str)
         if lines[0].isdigit():
             target['number'] = lines[0]
