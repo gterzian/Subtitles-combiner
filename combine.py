@@ -19,7 +19,7 @@ def read_subs(sub_file):
             if line.strip():
                 yield line.strip().decode('utf-8')       
                         
-def combine_into_dict(lines):
+def combine(lines):
     for lines in izip(*lines):
         if lines[0].isdigit():
             yield lines[0]
@@ -39,7 +39,7 @@ def write_combined_file(name, combined_subtitles):
 #actual processing workflow
 args = parser.parse_args()
 lines = read_files(args.files)
-combined_subtitles = combine_into_dict(lines) 
+combined_subtitles = combine(lines) 
 write_combined_file(args.title, combined_subtitles)
 
 
