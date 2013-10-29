@@ -12,6 +12,7 @@ Pinyin -- Chinese Characters
 $ python combine.py 
   --title 'Crouching Tiger Hidden Dragon' 
   --files 'CTHD.Simplified.srt' 'CTHD.Pinyin.srt' 
+===> Combined subtitles into a file named 'Crouching Tiger Hidden Dragon.srt'
 ```
 
 You can add as many filenames as you want, these will all be combined. 
