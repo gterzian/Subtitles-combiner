@@ -15,6 +15,7 @@ $ python combine.py
 ```
 
 you can add as many filenames as you want, these will all be combined. 
+The title argument is used for the name of the combined file.
 
 Also an example of using generators for creating data processing pipelines. 
 
