@@ -16,8 +16,9 @@ def read_files(names):
 def read_subs(sub_file):
     with open(sub_file, 'rt') as f: 
         for line in f:
-            if line.strip():
-                yield line.strip().decode('utf-8')       
+            striped = line.strip()
+            if striped:
+                yield striped.decode('utf-8')     
                         
 def combine(lines):
     for lines in izip(*lines):
@@ -38,8 +39,8 @@ def write_combined_file(name, combined_subtitles):
 
 #actual processing workflow
 args = parser.parse_args()
-lines = read_files(args.files)
-combined_subtitles = combine(lines) 
+readers = read_files(args.files)
+combined_subtitles = combine(readers) 
 write_combined_file(args.title, combined_subtitles)
 
 
