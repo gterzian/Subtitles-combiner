@@ -35,14 +35,14 @@ def write_combined_file(name, combined_subtitles):
         for line in combined_subtitles:
             f.write(line.encode('utf-8'))
             f.write(u'\n') 
-    print "===> Combined subtitles into a file named '%s.srt'" % name                   
+                       
 
 #actual processing workflow
 args = parser.parse_args()
 readers = read_files(args.files)
 combined_subtitles = combine(readers) 
 write_combined_file(args.title, combined_subtitles)
-
+print "===> Combined subtitles into a file named '%s.srt'" % args.title
 
 
 
