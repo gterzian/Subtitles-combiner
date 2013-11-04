@@ -36,7 +36,6 @@ def write_combined_file(name, combined_subtitles):
             f.write(line.encode('utf-8'))
             f.write(u'\n') 
                        
-
 #actual processing workflow
 args = parser.parse_args()
 readers = read_files(args.files)
