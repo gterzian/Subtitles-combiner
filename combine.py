@@ -11,9 +11,9 @@ parser.add_argument('--title', type=str, metavar='Title', nargs='?',
 
 def read_files(names):
     for name in names:
-        yield read_subs(name)
+        yield read_lines(name)
 
-def read_subs(sub_file):
+def read_lines(sub_file):
     with open(sub_file, 'rt') as f: 
         for line in f:
             striped = line.strip()
