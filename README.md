@@ -22,6 +22,6 @@ An example of using generators for creating data processing pipelines.
 
 For more on this technique see: 
 
-* [Coroutines and Generators, explained by David Beazley](http://www.dabeaz.com/coroutines/Coroutines.pdf)
+* [Python Generator Hacking by David Beazley](http://www.slideshare.net/dabeaz/python-generator-hacking)
 
 Also make sure to check out recipe 4.13. 'Creating Data Processing Pipelines' of the excellent [Python Cookbook](http://shop.oreilly.com/product/0636920027072.do)
